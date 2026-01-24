@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Linux.do 论坛刷帖助手 v8.3
+Linux.do 论坛刷帖助手 v8.4
 功能：
 1. 自动获取用户等级和升级进度
 2. 多板块浏览
@@ -22,7 +22,7 @@ import tkinter as tk
 from tkinter import ttk, scrolledtext, messagebox
 
 # 版本信息
-VERSION = "8.3"
+VERSION = "8.4"
 GITHUB_REPO = "icysaintdx/linuxdosss"
 
 # 托盘支持
