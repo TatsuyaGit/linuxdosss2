@@ -352,8 +352,17 @@ class Bot:
         """获取等级信息"""
         s.lg("获取等级信息...")
         try:
-            s.pg.get(s.cfg["connect"])
-            time.sleep(4)
+            # 如果是最终获取，先强制刷新页面确保数据最新
+            if is_final:
+                s.lg("强制刷新页面获取最新数据...")
+                s.pg.get(s.cfg["connect"])
+                time.sleep(2)
+                # 刷新页面
+                s.pg.run_js("location.reload(true)")
+                time.sleep(4)
+            else:
+                s.pg.get(s.cfg["connect"])
+                time.sleep(4)
 
             info = s.pg.run_js("""
             function getLevelInfo() {
