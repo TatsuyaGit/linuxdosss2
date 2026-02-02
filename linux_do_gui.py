@@ -25,14 +25,24 @@ from tkinter import ttk, scrolledtext, messagebox
 VERSION = "8.4"
 GITHUB_REPO = "icysaintdx/linuxdosss"
 
-# 托盘支持
-try:
-    import pystray
-    from PIL import Image, ImageDraw
+# 托盘支持（macOS 上禁用，因为可能导致 UI 问题）
+import platform
 
-    TRAY_SUPPORT = True
-except ImportError:
-    TRAY_SUPPORT = False
+TRAY_SUPPORT = False
+if platform.system() != "Darwin":  # 非 macOS
+    try:
+        import pystray
+        from PIL import Image, ImageDraw
+
+        TRAY_SUPPORT = True
+    except ImportError:
+        TRAY_SUPPORT = False
+else:
+    # macOS 上尝试导入 PIL（用于其他功能），但禁用托盘
+    try:
+        from PIL import Image, ImageDraw
+    except ImportError:
+        pass
 
 try:
     from DrissionPage import ChromiumPage, ChromiumOptions
