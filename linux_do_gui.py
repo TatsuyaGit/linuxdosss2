@@ -25,9 +25,20 @@ from tkinter import ttk, scrolledtext, messagebox
 VERSION = "8.4"
 GITHUB_REPO = "icysaintdx/linuxdosss"
 
-# 托盘支持（macOS 上禁用，因为可能导致 UI 问题）
+# 跨平台字体配置
 import platform
 
+if platform.system() == "Darwin":  # macOS
+    FONT_FAMILY = "PingFang SC"
+    FONT_MONO = "Menlo"
+elif platform.system() == "Linux":
+    FONT_FAMILY = "Noto Sans CJK SC"
+    FONT_MONO = "Monospace"
+else:  # Windows
+    FONT_FAMILY = "Microsoft YaHei UI"
+    FONT_MONO = "Consolas"
+
+# 托盘支持（macOS 上禁用，因为可能导致 UI 问题）
 TRAY_SUPPORT = False
 if platform.system() != "Darwin":  # 非 macOS
     try:
@@ -1512,7 +1523,7 @@ class GUI:
             text=" 用户信息 ",
             bg="#1a1a2e",
             fg="#00d9ff",
-            font=("Microsoft YaHei UI", 10, "bold"),
+            font=(FONT_FAMILY, 10, "bold"),
         )
         info_frame.pack(fill=tk.X, padx=15, pady=5)
 
@@ -1528,21 +1539,21 @@ class GUI:
             textvariable=s.user_label,
             bg="#1a1a2e",
             fg="#eaeaea",
-            font=("Microsoft YaHei UI", 10),
+            font=(FONT_FAMILY, 10),
         ).pack(side=tk.LEFT, padx=10)
         tk.Label(
             info_inner,
             textvariable=s.level_label,
             bg="#1a1a2e",
             fg="#00ff88",
-            font=("Microsoft YaHei UI", 10, "bold"),
+            font=(FONT_FAMILY, 10, "bold"),
         ).pack(side=tk.LEFT, padx=10)
         tk.Label(
             info_inner,
             textvariable=s.next_level_label,
             bg="#1a1a2e",
             fg="#ffaa00",
-            font=("Microsoft YaHei UI", 10),
+            font=(FONT_FAMILY, 10),
         ).pack(side=tk.LEFT, padx=10)
 
         # 升级进度面板（使用固定高度的Canvas实现滚动）
@@ -1551,7 +1562,7 @@ class GUI:
             text=" 升级进度追踪 ",
             bg="#1a1a2e",
             fg="#00d9ff",
-            font=("Microsoft YaHei UI", 10, "bold"),
+            font=(FONT_FAMILY, 10, "bold"),
         )
         progress_frame.pack(fill=tk.X, padx=15, pady=5)
 
@@ -1583,7 +1594,7 @@ class GUI:
             text=" 运行模式 ",
             bg="#1a1a2e",
             fg="#00d9ff",
-            font=("Microsoft YaHei UI", 10, "bold"),
+            font=(FONT_FAMILY, 10, "bold"),
         )
         mode_frame.pack(fill=tk.X, padx=15, pady=5)
 
@@ -1603,7 +1614,7 @@ class GUI:
             selectcolor="#16213e",
             activebackground="#1a1a2e",
             activeforeground="#00d9ff",
-            font=("Microsoft YaHei UI", 9),
+            font=(FONT_FAMILY, 9),
         ).pack(side=tk.LEFT, padx=10)
 
         # 帖子数量模式
@@ -1617,7 +1628,7 @@ class GUI:
             selectcolor="#16213e",
             activebackground="#1a1a2e",
             activeforeground="#00d9ff",
-            font=("Microsoft YaHei UI", 9),
+            font=(FONT_FAMILY, 9),
         ).pack(side=tk.LEFT, padx=10)
 
         s.topics_var = tk.StringVar(value="50")
@@ -1634,7 +1645,7 @@ class GUI:
             text="个",
             bg="#1a1a2e",
             fg="#eaeaea",
-            font=("Microsoft YaHei UI", 9),
+            font=(FONT_FAMILY, 9),
         ).pack(side=tk.LEFT)
 
         # 时间限制模式
@@ -1648,7 +1659,7 @@ class GUI:
             selectcolor="#16213e",
             activebackground="#1a1a2e",
             activeforeground="#00d9ff",
-            font=("Microsoft YaHei UI", 9),
+            font=(FONT_FAMILY, 9),
         ).pack(side=tk.LEFT, padx=10)
 
         s.time_var = tk.StringVar(value="30")
@@ -1665,7 +1676,7 @@ class GUI:
             text="分钟",
             bg="#1a1a2e",
             fg="#eaeaea",
-            font=("Microsoft YaHei UI", 9),
+            font=(FONT_FAMILY, 9),
         ).pack(side=tk.LEFT)
 
         # 浏览模式选择（第二行）
@@ -1677,7 +1688,7 @@ class GUI:
             text="浏览模式:",
             bg="#1a1a2e",
             fg="#eaeaea",
-            font=("Microsoft YaHei UI", 9),
+            font=(FONT_FAMILY, 9),
         ).pack(side=tk.LEFT, padx=(0, 10))
 
         s.browse_mode_var = tk.StringVar(value="deep")
@@ -1692,7 +1703,7 @@ class GUI:
             selectcolor="#16213e",
             activebackground="#1a1a2e",
             activeforeground="#00d9ff",
-            font=("Microsoft YaHei UI", 9),
+            font=(FONT_FAMILY, 9),
         ).pack(side=tk.LEFT, padx=5)
 
         tk.Radiobutton(
@@ -1705,7 +1716,7 @@ class GUI:
             selectcolor="#16213e",
             activebackground="#1a1a2e",
             activeforeground="#00d9ff",
-            font=("Microsoft YaHei UI", 9),
+            font=(FONT_FAMILY, 9),
         ).pack(side=tk.LEFT, padx=5)
 
         tk.Label(
@@ -1713,7 +1724,7 @@ class GUI:
             text="(快速模式增加浏览话题数)",
             bg="#1a1a2e",
             fg="#888888",
-            font=("Microsoft YaHei UI", 8),
+            font=(FONT_FAMILY, 8),
         ).pack(side=tk.LEFT, padx=5)
 
         # 控制栏
@@ -1737,7 +1748,7 @@ class GUI:
             width=10,
             bg="#0f3460",
             fg="white",
-            font=("Microsoft YaHei UI", 10, "bold"),
+            font=(FONT_FAMILY, 10, "bold"),
         )
         s.start_btn.pack(side=tk.LEFT, padx=10)
         s.stop_btn = tk.Button(
@@ -1758,7 +1769,7 @@ class GUI:
             textvariable=s.countdown_var,
             bg="#1a1a2e",
             fg="#00d9ff",
-            font=("Microsoft YaHei UI", 10, "bold"),
+            font=(FONT_FAMILY, 10, "bold"),
         )
         s.countdown_label.pack(side=tk.LEFT, padx=15)
 
@@ -1772,7 +1783,7 @@ class GUI:
             text=" 板块选择 ",
             bg="#1a1a2e",
             fg="#00d9ff",
-            font=("Microsoft YaHei UI", 10, "bold"),
+            font=(FONT_FAMILY, 10, "bold"),
         )
         left.pack(side=tk.LEFT, fill=tk.Y, padx=(0, 10))
 
@@ -1802,14 +1813,14 @@ class GUI:
             text="运行日志",
             bg="#1a1a2e",
             fg="#00d9ff",
-            font=("Microsoft YaHei UI", 10, "bold"),
+            font=(FONT_FAMILY, 10, "bold"),
         ).pack(anchor=tk.W)
         s.log = scrolledtext.ScrolledText(
             right,
             height=14,
             bg="#16213e",
             fg="#eaeaea",
-            font=("Consolas", 9),
+            font=(FONT_MONO, 9),
             insertbackground="#eaeaea",
         )
         s.log.pack(fill=tk.BOTH, expand=True, pady=5)
@@ -1900,7 +1911,7 @@ class GUI:
             text="(已有滚动延迟，可关闭)",
             bg="#1a1a2e",
             fg="#888888",
-            font=("Microsoft YaHei UI", 8),
+            font=(FONT_FAMILY, 8),
         ).pack(side=tk.LEFT)
 
         # 统计信息
@@ -1909,7 +1920,7 @@ class GUI:
             text=" 本次统计 ",
             bg="#1a1a2e",
             fg="#00d9ff",
-            font=("Microsoft YaHei UI", 10, "bold"),
+            font=(FONT_FAMILY, 10, "bold"),
         )
         stats_frame.pack(fill=tk.X, pady=5)
 
@@ -1927,35 +1938,35 @@ class GUI:
             textvariable=s.stats_topic,
             bg="#1a1a2e",
             fg="#eaeaea",
-            font=("Microsoft YaHei UI", 10),
+            font=(FONT_FAMILY, 10),
         ).pack(side=tk.LEFT, padx=10)
         tk.Label(
             stats_inner,
             textvariable=s.stats_floors,
             bg="#1a1a2e",
             fg="#eaeaea",
-            font=("Microsoft YaHei UI", 10),
+            font=(FONT_FAMILY, 10),
         ).pack(side=tk.LEFT, padx=10)
         tk.Label(
             stats_inner,
             textvariable=s.stats_total,
             bg="#1a1a2e",
             fg="#00ff88",
-            font=("Microsoft YaHei UI", 10, "bold"),
+            font=(FONT_FAMILY, 10, "bold"),
         ).pack(side=tk.LEFT, padx=10)
         tk.Label(
             stats_inner,
             textvariable=s.stats_like,
             bg="#1a1a2e",
             fg="#eaeaea",
-            font=("Microsoft YaHei UI", 10),
+            font=(FONT_FAMILY, 10),
         ).pack(side=tk.LEFT, padx=10)
         tk.Label(
             stats_inner,
             textvariable=s.stats_reply,
             bg="#1a1a2e",
             fg="#eaeaea",
-            font=("Microsoft YaHei UI", 10),
+            font=(FONT_FAMILY, 10),
         ).pack(side=tk.LEFT, padx=10)
 
     def _toggle_cat(s, name, var):
@@ -2049,7 +2060,7 @@ class GUI:
                 text=header,
                 bg="#1a1a2e",
                 fg="#00d9ff",
-                font=("Microsoft YaHei UI", 9, "bold"),
+                font=(FONT_FAMILY, 9, "bold"),
                 anchor="w",
             ).grid(row=0, column=col, padx=col_padx[col], pady=5, sticky="w")
 
@@ -2065,7 +2076,7 @@ class GUI:
                 text=name,
                 bg="#1a1a2e",
                 fg="#eaeaea",
-                font=("Microsoft YaHei UI", 9),
+                font=(FONT_FAMILY, 9),
                 anchor="w",
             ).grid(row=row, column=0, padx=col_padx[0], pady=3, sticky="w")
 
@@ -2075,7 +2086,7 @@ class GUI:
                 text=current,
                 bg="#1a1a2e",
                 fg="#888888",
-                font=("Microsoft YaHei UI", 9),
+                font=(FONT_FAMILY, 9),
                 anchor="w",
             ).grid(row=row, column=1, padx=col_padx[1], pady=3, sticky="w")
 
@@ -2086,7 +2097,7 @@ class GUI:
                 textvariable=current_var,
                 bg="#1a1a2e",
                 fg="#00ff88",
-                font=("Microsoft YaHei UI", 9, "bold"),
+                font=(FONT_FAMILY, 9, "bold"),
                 anchor="w",
             ).grid(row=row, column=2, padx=col_padx[2], pady=3, sticky="w")
 
@@ -2096,7 +2107,7 @@ class GUI:
                 text=required,
                 bg="#1a1a2e",
                 fg="#ffaa00",
-                font=("Microsoft YaHei UI", 9),
+                font=(FONT_FAMILY, 9),
                 anchor="w",
             ).grid(row=row, column=3, padx=col_padx[3], pady=3, sticky="w")
 
@@ -2107,7 +2118,7 @@ class GUI:
                 textvariable=added_var,
                 bg="#1a1a2e",
                 fg="#00d9ff",
-                font=("Microsoft YaHei UI", 9, "bold"),
+                font=(FONT_FAMILY, 9, "bold"),
                 anchor="w",
             ).grid(row=row, column=4, padx=col_padx[4], pady=3, sticky="w")
 
